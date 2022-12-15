@@ -34,7 +34,14 @@ export class NotificationsController {
       recipientId,
     });
 
-    return { notifications: notifications.map(NotificationViewModel.toHttp) };
+    const { count } = await this.countRecipientNotifications.execute({
+      recipientId,
+    });
+
+    return {
+      count,
+      notifications: notifications.map(NotificationViewModel.toHttp),
+    };
   }
 
   @Post()
